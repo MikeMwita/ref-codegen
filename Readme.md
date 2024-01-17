@@ -100,3 +100,18 @@ if err != nil {
 }
 fmt.Println(decrypted) // your-code
 ```
+### Generate a private and public key pair in PEM format
+    
+```go
+privateKey, publicKey, err := codegen.GenerateKeyPair(codegen.Options{
+Format: codegen.RSA,
+Length: 2048,
+})
+if err != nil {
+fmt.Println(err)
+return
+}
+fmt.Println(privateKey) // -----BEGIN RSA PRIVATE KEY----- ...
+fmt.Println(publicKey) // -----BEGIN PUBLIC KEY
+```
+
