@@ -2,13 +2,15 @@
 
 package usecases
 
+import "github.com/MikeMwita/ref-codegen/adapters/input"
+
 // ValidateCode is a use case that validates a code or key
 type ValidateCode struct {
-	codeRepository entities.CodeRepository // the repository for storing and retrieving codes
+	codeRepository input.CodeRepository // the repository for storing and retrieving codes
 }
 
 // NewValidateCode creates a new ValidateCode use case with the given repository
-func NewValidateCode(codeRepository entities.CodeRepository) *ValidateCode {
+func NewValidateCode(codeRepository input.CodeRepository) *ValidateCode {
 	return &ValidateCode{
 		codeRepository: codeRepository,
 	}
