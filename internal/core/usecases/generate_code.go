@@ -3,16 +3,18 @@
 package usecases
 
 import (
+	"github.com/MikeMwita/ref-codegen/adapters/input"
 	"github.com/MikeMwita/ref-codegen/internal/core/entities"
 )
 
 // GenerateCode is a use case that generates a code or key with the given options
+
 type GenerateCode struct {
-	codeRepository entities.CodeRepository // the repository for storing and retrieving codes
+	codeRepository input.CodeRepository // the repository for storing and retrieving codes
 }
 
 // NewGenerateCode creates a new GenerateCode use case with the given repository
-func NewGenerateCode(codeRepository entities.CodeRepository) *GenerateCode {
+func NewGenerateCode(codeRepository input.CodeRepository) *GenerateCode {
 	return &GenerateCode{
 		codeRepository: codeRepository,
 	}
