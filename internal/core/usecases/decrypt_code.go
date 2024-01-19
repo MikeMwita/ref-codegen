@@ -2,13 +2,17 @@
 
 package usecases
 
+import (
+	"github.com/MikeMwita/ref-codegen/internal/crypto"
+)
+
 // DecryptCode is a use case that decrypts a code or key with the given key
 type DecryptCode struct {
-	codeService entities.CodeService // the service for encrypting and decrypting codes
+	codeService crypto.CodeService // the service for encrypting and decrypting codes
 }
 
 // NewDecryptCode creates a new DecryptCode use case with the given service
-func NewDecryptCode(codeService entities.CodeService) *DecryptCode {
+func NewDecryptCode(codeService crypto.CodeService) *DecryptCode {
 	return &DecryptCode{
 		codeService: codeService,
 	}
