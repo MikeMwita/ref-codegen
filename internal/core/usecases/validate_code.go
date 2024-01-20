@@ -1,17 +1,9 @@
-// core/usecases/validate_code.go
-
 package usecases
 
-// ValidateCode is a use case that validates a code or key
-type ValidateCode struct {
-	codeRepository entities.CodeRepository // the repository for storing and retrieving codes
-}
+import "github.com/MikeMwita/ref-codegen/adapters/input"
 
-// NewValidateCode creates a new ValidateCode use case with the given repository
-func NewValidateCode(codeRepository entities.CodeRepository) *ValidateCode {
-	return &ValidateCode{
-		codeRepository: codeRepository,
-	}
+type ValidateCode struct {
+	codeRepository input.CodeRepository
 }
 
 // Execute executes the use case with the given input and output
@@ -39,4 +31,10 @@ type ValidateCodeInput struct {
 // ValidateCodeOutput is an interface that defines the output for the ValidateCode use case
 type ValidateCodeOutput interface {
 	Present(valid bool) // presents the validation result to the output
+}
+
+func NewValidateCode(codeRepository input.CodeRepository) *ValidateCode {
+	return &ValidateCode{
+		codeRepository: codeRepository,
+	}
 }

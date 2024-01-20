@@ -2,13 +2,17 @@
 
 package usecases
 
+import (
+	"github.com/MikeMwita/ref-codegen/internal/crypto"
+)
+
 // EncryptCode is a use case that encrypts a code or key with the given key
 type EncryptCode struct {
-	codeService entities.CodeService // the service for encrypting and decrypting codes
+	codeService crypto.CodeService // the service for encrypting and decrypting codes
 }
 
 // NewEncryptCode creates a new EncryptCode use case with the given service
-func NewEncryptCode(codeService entities.CodeService) *EncryptCode {
+func NewEncryptCode(codeService crypto.CodeService) *EncryptCode {
 	return &EncryptCode{
 		codeService: codeService,
 	}
