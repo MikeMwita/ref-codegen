@@ -1,5 +1,3 @@
-// interface_adapters/presenters/json_presenter.go
-
 package presenters
 
 import (
@@ -12,59 +10,47 @@ import (
 // JSONPresenter is a type that implements the output interfaces using JSON format
 type JSONPresenter struct{}
 
+func (j *JSONPresenter) Present(code *entities.Code) {
+	//TODO implement me
+	panic("implement me")
+}
+
 // NewJSONPresenter creates a new JSONPresenter
 func NewJSONPresenter() *JSONPresenter {
 	return &JSONPresenter{}
 }
 
-// Present presents a code to the output using JSON format
-func (j *JSONPresenter) Present(code *entities.Code) {
-	// create a response data structure from the code entity
+// PresentCode presents a code to the output using JSON format
+func (j *JSONPresenter) PresentCode(w http.ResponseWriter, code *entities.Code) {
 	response := output.Response{
 		Value:  code.Value,
 		Format: code.Format,
 	}
-	// encode the response to JSON
-	data, err := json.Marshal(response)
-	if err != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
-		return
-	}
-	// write the JSON response to the output
-	w.Header().Set("Content-Type", "application/json")
-	w.Write(data)
+
+	j.presentJSON(w, response)
 }
 
-// Present presents a validation result to the output using JSON format
-func (j *JSONPresenter) Present(valid bool) {
-	// create a response data structure from the validation result
+// PresentValidation presents a validation result to the output using JSON format
+func (j *JSONPresenter) PresentValidation(w http.ResponseWriter, valid bool) {
 	response := output.Response{
 		Valid: valid,
 	}
-	// encode the response to JSON
-	data, err := json.Marshal(response)
-	if err != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
-		return
-	}
-	// write the JSON response to the output
-	w.Header().Set("Content-Type", "application/json")
-	w.Write(data)
+
+	j.presentJSON(w, response)
 }
 
-// Present presents an encrypted or decrypted code to the output using JSON format
-func (j *JSONPresenter) Present(code string) {
-	// create a response data structure from the code
+// PresentEncrypted presents an encrypted or decrypted code to the output using JSON format
+func (j *JSONPresenter) PresentEncrypted(w http.ResponseWriter, code string) {
 	response := output.Response{
 		Value: code,
 	}
-	// encode the response to JSON
-	data, err := json.Marshal(response)
-	if err != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
-		return
-	}
-	// write the JSON response to the output
+
+	j.presentJSON(w, response)
+}
+
+func (j *JSONPresenter) presentJSON(w http.ResponseWriter, data interface{}) {
 	w.Header().Set("Content-Type", "application/json")
-	w.Write(data)
+	if err := json.NewEncoder(w).Encode(data); err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+	}
 }
