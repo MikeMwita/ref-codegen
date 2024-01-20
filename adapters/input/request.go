@@ -1,23 +1,21 @@
-// interface_adapters/input/request.go
-
 package input
 
 import (
 	"github.com/MikeMwita/ref-codegen/internal/core/usecases"
 )
 
-// Request is a type that defines the input data structures for the interface adapters layer
 type Request struct {
-	Format    string // the format of the code or key, such as Luhn, UUID, KSUID, etc.
-	Length    int    // the length of the code or key
-	Prefix    string // the prefix of the code or key
-	Suffix    string // the suffix of the code or key
-	Delimiter string // the delimiter of the code or key
-	Value     string // the value of the code or key
-	Key       []byte // the key to encrypt or decrypt with
+	Format    string
+	Length    int
+	Prefix    string
+	Suffix    string
+	Delimiter string
+	Value     string
+	Key       []byte
 }
 
-// ToGenerateCodeInput converts the Request to a GenerateCodeInput
+//  converts the Request to a GenerateCodeInput
+
 func (r *Request) ToGenerateCodeInput() usecases.GenerateCodeInput {
 	return usecases.GenerateCodeInput{
 		Format:    r.Format,
@@ -28,7 +26,6 @@ func (r *Request) ToGenerateCodeInput() usecases.GenerateCodeInput {
 	}
 }
 
-// ToValidateCodeInput converts the Request to a ValidateCodeInput
 func (r *Request) ToValidateCodeInput() usecases.ValidateCodeInput {
 	return usecases.ValidateCodeInput{
 		Value: r.Value,
@@ -43,7 +40,7 @@ func (r *Request) ToEncryptCodeInput() usecases.EncryptCodeInput {
 	}
 }
 
-// ToDecryptCodeInput converts the Request to a DecryptCodeInput
+// converts the Request to a DecryptCodeInput
 func (r *Request) ToDecryptCodeInput() usecases.DecryptCodeInput {
 	return usecases.DecryptCodeInput{
 		Code: r.Value,
