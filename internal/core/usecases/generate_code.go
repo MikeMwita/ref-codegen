@@ -1,5 +1,3 @@
-// core/usecases/generate_code.go
-
 package usecases
 
 import (
@@ -7,20 +5,10 @@ import (
 	"github.com/MikeMwita/ref-codegen/internal/core/entities"
 )
 
-// GenerateCode is a use case that generates a code or key with the given options
-
 type GenerateCode struct {
-	codeRepository input.CodeRepository // the repository for storing and retrieving codes
+	codeRepository input.CodeRepository
 }
 
-// NewGenerateCode creates a new GenerateCode use case with the given repository
-func NewGenerateCode(codeRepository input.CodeRepository) *GenerateCode {
-	return &GenerateCode{
-		codeRepository: codeRepository,
-	}
-}
-
-// Execute executes the use case with the given input and output
 func (g *GenerateCode) Execute(input GenerateCodeInput, output GenerateCodeOutput) error {
 	// create a new Code entity with the given format
 	code, err := entities.NewCode("", input.Format)
@@ -58,5 +46,12 @@ type GenerateCodeInput struct {
 
 // GenerateCodeOutput is an interface that defines the output for the GenerateCode use case
 type GenerateCodeOutput interface {
-	Present(code *entities.Code) // presents the code or key to the output
+	PresentCode(code *entities.Code) // presents the code or key to the output
+}
+
+// NewGenerateCode creates a new GenerateCode use case with the given repository
+func NewGenerateCode(codeRepository input.CodeRepository) *GenerateCode {
+	return &GenerateCode{
+		codeRepository: codeRepository,
+	}
 }
